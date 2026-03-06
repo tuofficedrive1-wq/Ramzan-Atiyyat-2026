@@ -61,7 +61,7 @@
 <script>
     var fullMapping = {};
     // --- SETTINGS ---
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzOZcLoRDzXgmzvcgePP84BSP2QjORuT9wZMIvret0fYDzLIiV_3Fd_tg4F1qfC5efx/exec'; 
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzQGgFJgjFKlq2ErBYsyk0ANBwJhpw6XlNY9IVChOGEftK-L7M1fYFZqZ2kbWX3FrL5/exec'; 
     const mySheetId = '1ScZXudbJfJ8mxkW4FvnzdIundwBMjRXqZrqnTnqhzXg'; // Sheet ID yahan hai
     const mySheetName = 'data'; // Sheet Name yahan hai
     // ----------------
@@ -104,23 +104,36 @@
 
     document.getElementById('atiyyatForm').onsubmit = function(e) {
         e.preventDefault();
-        Swal.fire({ title: 'انتظار کریں...', didOpen: () => Swal.showLoading() });
-        
+        Swal.fire({ 
+            title: 'انتظار کریں...', 
+            text: 'آپ کا رینک کیلکولیٹ کیا جا رہا ہے',
+            allowOutsideClick: false, 
+            didOpen: () => Swal.showLoading() 
+        });
+
         fetch(scriptURL, { method: 'POST', body: new FormData(this) })
-            .then(r => r.json())
-            .then(res => {
+            .then(r => r.json()).then(res => {
                 Swal.close();
                 if(res.status === 'success') {
                     document.getElementById('formSection').style.display = 'none';
                     document.getElementById('rankCard').style.display = 'block';
+                    
+                    // Display Data
                     document.getElementById('airRank').innerText = res.airRank;
+                    document.getElementById('regRank').innerText = res.regRank;
+                    document.getElementById('regName').innerText = res.region;
+                    
+                    // Agar aap total raqam bhi dikhana chahen
+                    if(document.getElementById('totalAmountDisplay')) {
+                        document.getElementById('totalAmountDisplay').innerText = "کل رقم: " + res.totalAmount;
+                    }
                 }
-            })
-            .catch(err => Swal.fire('Error!', 'Network issue!', 'error'));
+            }).catch(() => Swal.fire('Error', 'ڈیٹا جمع کرنے میں مسئلہ ہوا ہے', 'error'));
     };
 </script>
 </body>
 </html>
+
 
 
 
