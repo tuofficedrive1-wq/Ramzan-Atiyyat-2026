@@ -60,23 +60,28 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     var fullMapping = {};
-    // Aapka Web App URL (Ise check karlein ke sahi hai)
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyq48Z1sQCj5WRA6b0BGT97Y2nkYM6XU6RJJELlXTxdZP9zH9XkPb51sZ1PI8EUTiUq/exec'; 
+    // --- SETTINGS ---
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzOZcLoRDzXgmzvcgePP84BSP2QjORuT9wZMIvret0fYDzLIiV_3Fd_tg4F1qfC5efx/exec'; 
+    const mySheetId = '1ScZXudbJfJ8mxkW4FvnzdIundwBMjRXqZrqnTnqhzXg'; // Sheet ID yahan hai
+    const mySheetName = 'data'; // Sheet Name yahan hai
+    // ----------------
 
     window.onload = function() {
-        // Dropdown data load karne ke liye GET request
-        fetch(scriptURL + '?action=getDropdowns')
-            .then(response => response.json())
-            .then(res => {
-                fullMapping = res.mapping;
-                populateDropdown('region', res.regions);
-                populateDropdown('darja', res.classes);
-            })
-            .catch(err => console.error('Data load error:', err));
+        // JSONP Call to get data
+        var script = document.createElement('script');
+        script.src = `${scriptURL}?action=getDropdowns&sheetId=${mySheetId}&sheetName=${mySheetName}&callback=setupData`;
+        document.body.appendChild(script);
     };
+
+    function setupData(res) {
+        fullMapping = res.mapping;
+        populateDropdown('region', res.regions);
+        populateDropdown('darja', res.classes);
+    }
 
     function populateDropdown(id, list) {
         let select = document.getElementById(id);
+        if(!select) return;
         select.innerHTML = '<option value="">منتخب کریں</option>';
         list.forEach(item => {
             select.innerHTML += `<option value="${item}">${item}</option>`;
@@ -110,10 +115,12 @@
                     document.getElementById('rankCard').style.display = 'block';
                     document.getElementById('airRank').innerText = res.airRank;
                 }
-            });
+            })
+            .catch(err => Swal.fire('Error!', 'Network issue!', 'error'));
     };
 </script>
 </body>
 </html>
+
 
 
