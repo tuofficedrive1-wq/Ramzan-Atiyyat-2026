@@ -23,139 +23,106 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             border-top: 10px solid #198754;
         }
-        .header-section { text-align: center; margin-bottom: 25px; }
-        .header-title { color: #198754; font-size: 30px; font-weight: bold; }
-        .sub-title { color: #2c3e50; font-size: 24px; }
-        .form-label { font-size: 20px; color: #444; margin-bottom: 8px; display: block; }
-        .form-control, .form-select {
-            font-family: 'Jameel Noori Nastaleeq', serif;
-            font-size: 18px;
-            border-radius: 10px;
-            border: 2px solid #eee;
-            margin-bottom: 20px;
-        }
-        .btn-submit {
-            background-color: #198754;
-            color: white;
-            width: 100%;
-            padding: 12px;
-            font-size: 24px;
-            border-radius: 10px;
-            border: none;
-            transition: 0.3s;
-        }
-        .btn-submit:hover { background-color: #146c43; }
+        .header-title { color: #198754; font-size: 30px; font-weight: bold; text-align: center; }
+        .sub-title { color: #2c3e50; font-size: 24px; text-align: center; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px; }
+        .form-label { font-size: 20px; color: #444; margin-bottom: 5px; display: block; }
+        .form-control, .form-select { font-family: 'Jameel Noori Nastaleeq', serif; font-size: 18px; border-radius: 10px; margin-bottom: 15px; }
+        .btn-submit { background-color: #198754; color: white; width: 100%; padding: 12px; font-size: 24px; border-radius: 10px; border: none; }
         
-        /* Rank Card Style */
-        #rankCard {
-            display: none;
-            background: #ffffff;
-            border: 3px double #198754;
-            padding: 25px;
-            border-radius: 20px;
-            text-align: center;
-        }
-        .rank-box {
-            background: #e8f5e9;
-            padding: 15px;
-            border-radius: 15px;
-            margin: 15px 0;
-        }
-        .rank-number { font-size: 40px; color: #d32f2f; font-weight: bold; }
+        /* Rank Card */
+        #rankCard { display: none; text-align: center; }
+        .rank-box { background: #e8f5e9; padding: 15px; border-radius: 15px; margin: 10px 0; border: 1px solid #c8e6c9; }
+        .rank-number { font-size: 45px; color: #d32f2f; font-weight: bold; }
+        .total-amount { font-size: 22px; color: #1b5e20; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="form-card" id="mainContainer">
-        <div class="header-section">
+    <div class="form-card">
+        <div id="formSection">
             <h1 class="header-title">رمضان عطیات مقابلہ</h1>
             <h2 class="sub-title">جامعۃ المدینہ انڈیا</h2>
+
+            <form id="atiyyatForm">
+                <label class="form-label">نام (Name)</label>
+                <input type="text" name="name" class="form-control" placeholder="اپنا نام لکھیں" required>
+
+                <label class="form-label">جامعہ (Jamia)</label>
+                <input type="text" name="jamia" class="form-control" placeholder="جامعہ کا نام" required>
+
+                <label class="form-label">درجہ (معلم الدرجہ)</label>
+                <input type="text" name="darja" class="form-control" placeholder="درجہ لکھیں" required>
+
+                <label class="form-label">ریجن (Region)</label>
+                <select name="region" class="form-select" required>
+                    <option value="" disabled selected>منتخب کریں</option>
+                    <option value="اجمیر">اجمیر</option>
+                    <option value="دہلی">دہلی</option>
+                    <option value="ممبئی">ممبئی</option>
+                    <option value="حیدرآباد">حیدرآباد</option>
+                    <option value="بینگلور">بینگلور</option>
+                    <option value="کلکتہ">کلکتہ</option>
+                </select>
+
+                <label class="form-label">آپ کے عطیات</label>
+                <input type="number" name="personal_amount" class="form-control" placeholder="رقم درج کریں" required>
+
+                <label class="form-label">آپ کے درجے کے عطیات</label>
+                <input type="number" name="class_amount" class="form-control" placeholder="رقم درج کریں" required>
+
+                <button type="submit" class="btn btn-submit" id="submitBtn">ڈیٹا جمع کریں</button>
+            </form>
         </div>
 
-        <form id="atiyyatForm">
-            <label class="form-label">نام (Name)</label>
-            <input type="text" name="name" class="form-control" placeholder="اپنا نام لکھیں" required>
-
-            <label class="form-label">جامعہ (Jamia)</label>
-            <input type="text" name="jamia" class="form-control" placeholder="جامعہ کا نام" required>
-
-            <label class="form-label">درجہ (جس کے آپ معلم الدرجہ ہیں)</label>
-            <input type="text" name="darja" class="form-control" placeholder="درجہ لکھیں" required>
-
-            <label class="form-label">ریجن (Region)</label>
-            <select name="region" class="form-select" required>
-                <option value="" disabled selected>منتخب کریں</option>
-                <option value="اجمیر">اجمیر</option>
-                <option value="دہلی">دہلی</option>
-                <option value="ممبئی">ممبئی</option>
-                <option value="حیدرآباد">حیدرآباد</option>
-                <option value="بینگلور">بینگلور</option>
-                <option value="کلکتہ">کلکتہ</option>
-            </select>
-
-            <label class="form-label">آپ کے عطیات</label>
-            <input type="number" name="personal_amount" class="form-control" placeholder="اپنی رقم درج کریں" required>
-
-            <label class="form-label">آپ کے درجے کے عطیات</label>
-            <input type="number" name="class_amount" class="form-control" placeholder="درجے کی رقم درج کریں" required>
-
-            <button type="submit" class="btn btn-submit" id="submitBtn">ڈیٹا جمع کریں</button>
-        </form>
-
         <div id="rankCard">
-            <h2 style="color: #198754;">ماشاءاللہ! ڈیٹا محفوظ ہو گیا</h2>
+            <h2 style="color: #198754;">ماشاءاللہ! رینکنگ لسٹ</h2>
             <hr>
+            <div class="rank-box" style="background: #fff3e0; border-color: #ffe0b2;">
+                <div style="font-size: 18px;">آپ کی کل جمع کردہ رقم:</div>
+                <div class="total-amount">₹ <span id="yourTotalDisplay">0</span></div>
+            </div>
             <div class="rank-box">
-                <div style="font-size: 22px;">آپ کا آل انڈیا رینک:</div>
+                <div style="font-size: 20px;">آل انڈیا رینک:</div>
                 <div class="rank-number" id="airRankDisplay">0</div>
             </div>
-            <div class="rank-box" style="background: #e3f2fd;">
-                <div style="font-size: 22px;">ریجن (<span id="regionNameDisplay"></span>) میں رینک:</div>
+            <div class="rank-box" style="background: #e3f2fd; border-color: #bbdefb;">
+                <div style="font-size: 20px;">ریجن (<span id="regionNameDisplay"></span>) میں رینک:</div>
                 <div class="rank-number" style="color: #1976d2;" id="regRankDisplay">0</div>
             </div>
-            <p style="font-size: 18px; color: #555;">کل شرکاء: <span id="totalDisplay"></span></p>
-            <button onclick="window.location.reload()" class="btn btn-outline-success">نیا فارم بھریں</button>
+            <button onclick="window.location.reload()" class="btn btn-success mt-3 w-100">واپس جائیں</button>
         </div>
     </div>
 </div>
 
 <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwua7bBHaewTG1OZx69fstXXGqAFkbbLBDFqyp7fifwO8aLnQ0x-wxg3zem2rq-58ZC/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwYSQ5SjOv1xflutDizh-sjhg8gtXE02CfJlwu9te6GeBhQsrQwpr7D4KFZ5T0Fr_ME/exec';
     const form = document.getElementById('atiyyatForm');
+    const formSection = document.getElementById('formSection');
     const rankCard = document.getElementById('rankCard');
     const btn = document.getElementById('submitBtn');
 
     form.addEventListener('submit', e => {
         e.preventDefault();
         btn.disabled = true;
-        btn.innerHTML = "ڈیٹا بھیجا جا رہا ہے...";
+        btn.innerHTML = "انتظار کریں...";
 
         fetch(scriptURL, { method: 'POST', body: new FormData(form)})
             .then(response => response.json())
             .then(data => {
                 if(data.status === 'success') {
-                    form.style.display = 'none';
+                    formSection.style.display = 'none';
                     rankCard.style.display = 'block';
                     
+                    document.getElementById('yourTotalDisplay').innerText = data.yourTotal;
                     document.getElementById('airRankDisplay').innerText = data.airRank;
                     document.getElementById('regRankDisplay').innerText = data.regRank;
                     document.getElementById('regionNameDisplay').innerText = data.regionName;
-                    document.getElementById('totalDisplay').innerText = data.total;
-                } else {
-                    alert("Error: " + data.message);
-                    btn.disabled = false;
-                    btn.innerHTML = "دوبارہ کوشش کریں";
                 }
             })
-            .catch(error => {
-                alert("نیٹ ورک کا مسئلہ ہے!");
-                btn.disabled = false;
-                btn.innerHTML = "ڈیٹا جمع کریں";
-            });
+            .catch(error => alert("Net ka masla hai!"));
     });
 </script>
 
 </body>
 </html>
-
