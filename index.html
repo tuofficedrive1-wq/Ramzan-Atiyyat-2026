@@ -10,145 +10,148 @@
             font-family: 'Jameel Noori Nastaleeq';
             src: url('https://cdn.jsdelivr.net/gh/m-a-k-cool/fonts/Jameel%20Noori%20Nastaleeq.ttf');
         }
-
         body {
-            background-color: #f0f4f8;
-            font-family: 'Jameel Noori Nastaleeq', 'Segoe UI', Tahoma, sans-serif;
-            text-align: right;
+            background-color: #f4f7f6;
+            font-family: 'Jameel Noori Nastaleeq', 'Segoe UI', sans-serif;
+            padding: 20px;
         }
-
+        .container { max-width: 550px; }
         .form-card {
-            max-width: 550px;
-            margin: 30px auto;
-            background: #ffffff;
-            padding: 35px;
+            background: white;
+            padding: 30px;
             border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             border-top: 10px solid #198754;
         }
-
-        .header-title {
-            color: #198754;
-            font-size: 30px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 5px;
-        }
-
-        .sub-title {
-            font-size: 24px;
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 25px;
-            border-bottom: 2px solid #f1f1f1;
-            padding-bottom: 10px;
-        }
-
-        .form-label {
-            font-size: 20px;
-            color: #34495e;
-            font-weight: 500;
-        }
-
-        .form-control {
+        .header-section { text-align: center; margin-bottom: 25px; }
+        .header-title { color: #198754; font-size: 30px; font-weight: bold; }
+        .sub-title { color: #2c3e50; font-size: 24px; }
+        .form-label { font-size: 20px; color: #444; margin-bottom: 8px; display: block; }
+        .form-control, .form-select {
             font-family: 'Jameel Noori Nastaleeq', serif;
             font-size: 18px;
             border-radius: 10px;
-            padding: 10px;
-            border: 2px solid #e9ecef;
-            margin-bottom: 15px;
+            border: 2px solid #eee;
+            margin-bottom: 20px;
         }
-
         .btn-submit {
             background-color: #198754;
             color: white;
             width: 100%;
             padding: 12px;
-            font-size: 22px;
+            font-size: 24px;
             border-radius: 10px;
             border: none;
             transition: 0.3s;
-            margin-top: 10px;
         }
-
-        .btn-submit:hover {
-            background-color: #146c43;
-        }
-
-        #message {
-            margin-top: 15px;
+        .btn-submit:hover { background-color: #146c43; }
+        
+        /* Rank Card Style */
+        #rankCard {
+            display: none;
+            background: #ffffff;
+            border: 3px double #198754;
+            padding: 25px;
+            border-radius: 20px;
             text-align: center;
-            font-size: 18px;
-            font-weight: bold;
         }
+        .rank-box {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 15px;
+            margin: 15px 0;
+        }
+        .rank-number { font-size: 40px; color: #d32f2f; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="form-card">
-        <h1 class="header-title">رمضان عطیات مقابلہ</h1>
-        <h2 class="sub-title">جامعۃ المدینہ انڈیا</h2>
-        
+    <div class="form-card" id="mainContainer">
+        <div class="header-section">
+            <h1 class="header-title">رمضان عطیات مقابلہ</h1>
+            <h2 class="sub-title">جامعۃ المدینہ انڈیا</h2>
+        </div>
+
         <form id="atiyyatForm">
-            <div class="mb-3">
-                <label class="form-label">نام (Name)</label>
-                <input type="text" name="name" class="form-control" placeholder="اپنا نام لکھیں" required>
-            </div>
-            
-            <div class="mb-3">
-                <label class="form-label">جامعہ (Jamia)</label>
-                <input type="text" name="jamia" class="form-control" placeholder="اپنے جامعہ کا نام لکھیں" required>
-            </div>
+            <label class="form-label">نام (Name)</label>
+            <input type="text" name="name" class="form-control" placeholder="اپنا نام لکھیں" required>
 
-            <div class="mb-3">
-                <label class="form-label">درجہ (جس کے آپ معلم الدرجہ ہیں)</label>
-                <input type="text" name="darja" class="form-control" placeholder="درجہ لکھیں (مثلاً اولیٰ، ثانیہ)" required>
-            </div>
+            <label class="form-label">جامعہ (Jamia)</label>
+            <input type="text" name="jamia" class="form-control" placeholder="جامعہ کا نام" required>
 
-            <div class="mb-3">
-                <label class="form-label">آپ کے عطیات</label>
-                <input type="number" name="personal_amount" class="form-control" placeholder="اپنی انفرادی رقم لکھیں" required>
-            </div>
+            <label class="form-label">درجہ (جس کے آپ معلم الدرجہ ہیں)</label>
+            <input type="text" name="darja" class="form-control" placeholder="درجہ لکھیں" required>
 
-            <div class="mb-3">
-                <label class="form-label">آپ کے درجے کے عطیات</label>
-                <input type="number" name="class_amount" class="form-control" placeholder="درجے کی کل رقم لکھیں" required>
-            </div>
+            <label class="form-label">ریجن (Region)</label>
+            <select name="region" class="form-select" required>
+                <option value="" disabled selected>منتخب کریں</option>
+                <option value="اجمیر">اجمیر</option>
+                <option value="دہلی">دہلی</option>
+                <option value="ممبئی">ممبئی</option>
+                <option value="حیدرآباد">حیدرآباد</option>
+                <option value="بینگلور">بینگلور</option>
+                <option value="کلکتہ">کلکتہ</option>
+            </select>
+
+            <label class="form-label">آپ کے عطیات</label>
+            <input type="number" name="personal_amount" class="form-control" placeholder="اپنی رقم درج کریں" required>
+
+            <label class="form-label">آپ کے درجے کے عطیات</label>
+            <input type="number" name="class_amount" class="form-control" placeholder="درجے کی رقم درج کریں" required>
 
             <button type="submit" class="btn btn-submit" id="submitBtn">ڈیٹا جمع کریں</button>
         </form>
-        
-        <div id="message"></div>
+
+        <div id="rankCard">
+            <h2 style="color: #198754;">ماشاءاللہ! ڈیٹا محفوظ ہو گیا</h2>
+            <hr>
+            <div class="rank-box">
+                <div style="font-size: 22px;">آپ کا آل انڈیا رینک:</div>
+                <div class="rank-number" id="airRankDisplay">0</div>
+            </div>
+            <div class="rank-box" style="background: #e3f2fd;">
+                <div style="font-size: 22px;">ریجن (<span id="regionNameDisplay"></span>) میں رینک:</div>
+                <div class="rank-number" style="color: #1976d2;" id="regRankDisplay">0</div>
+            </div>
+            <p style="font-size: 18px; color: #555;">کل شرکاء: <span id="totalDisplay"></span></p>
+            <button onclick="window.location.reload()" class="btn btn-outline-success">نیا فارم بھریں</button>
+        </div>
     </div>
 </div>
 
 <script>
-    const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL_HERE'; // Apna URL yahan dalein
+    const scriptURL = 'YOUR_APPS_SCRIPT_URL_HERE';
     const form = document.getElementById('atiyyatForm');
-    const msg = document.getElementById('message');
+    const rankCard = document.getElementById('rankCard');
     const btn = document.getElementById('submitBtn');
 
     form.addEventListener('submit', e => {
         e.preventDefault();
         btn.disabled = true;
         btn.innerHTML = "ڈیٹا بھیجا جا رہا ہے...";
-        msg.innerHTML = "انتظار فرمائیں...";
-        msg.className = "text-primary";
 
         fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-            .then(response => {
-                msg.innerHTML = "شکریہ! ڈیٹا کامیابی سے محفوظ ہو گیا۔";
-                msg.className = "text-success";
-                btn.disabled = false;
-                btn.innerHTML = "ڈیٹا جمع کریں";
-                form.reset();
+            .then(response => response.json())
+            .then(data => {
+                if(data.status === 'success') {
+                    form.style.display = 'none';
+                    rankCard.style.display = 'block';
+                    
+                    document.getElementById('airRankDisplay').innerText = data.airRank;
+                    document.getElementById('regRankDisplay').innerText = data.regRank;
+                    document.getElementById('regionNameDisplay').innerText = data.regionName;
+                    document.getElementById('totalDisplay').innerText = data.total;
+                } else {
+                    alert("Error: " + data.message);
+                    btn.disabled = false;
+                    btn.innerHTML = "دوبارہ کوشش کریں";
+                }
             })
             .catch(error => {
-                msg.innerHTML = "معذرت، دوبارہ کوشش کریں!";
-                msg.className = "text-danger";
+                alert("نیٹ ورک کا مسئلہ ہے!");
                 btn.disabled = false;
-                btn.innerHTML = "دوبارہ کوشش کریں";
+                btn.innerHTML = "ڈیٹا جمع کریں";
             });
     });
 </script>
