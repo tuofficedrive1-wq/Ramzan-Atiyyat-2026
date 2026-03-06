@@ -3,55 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ramzan Atiyyat Competition</title>
+    <title>رمضان عطیات مقابلہ</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        /* Jameel Noori Nastaliq Font Load Karna */
         @font-face {
             font-family: 'Jameel Noori Nastaleeq';
             src: url('https://cdn.jsdelivr.net/gh/m-a-k-cool/fonts/Jameel%20Noori%20Nastaleeq.ttf');
         }
+
         body {
-            background-color: #f0f2f5;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            font-family: 'Jameel Noori Nastaleeq', 'Segoe UI', Tahoma, sans-serif;
+            text-align: right;
         }
+
         .form-card {
             max-width: 500px;
-            margin: 50px auto;
+            margin: 40px auto;
             background: #ffffff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border-top: 8px solid #198754;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border-top: 10px solid #198754;
         }
+
         .header-title {
             color: #198754;
+            font-size: 32px;
             font-weight: bold;
             text-align: center;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
+
         .sub-title {
-            font-family: 'Jameel Noori Nastaleeq', serif;
-            font-size: 24px;
+            font-size: 26px;
             text-align: center;
             color: #2c3e50;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
         }
+
+        .form-label {
+            font-size: 20px;
+            font-weight: 500;
+            color: #34495e;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            font-family: 'Jameel Noori Nastaleeq', serif;
+            font-size: 18px;
+            border-radius: 10px;
+            padding: 12px;
+            text-align: right;
+            border: 2px solid #e9ecef;
+        }
+
+        .form-control:focus {
+            border-color: #198754;
+            box-shadow: 0 0 8px rgba(25, 135, 84, 0.2);
+        }
+
         .btn-submit {
             background-color: #198754;
             color: white;
             width: 100%;
             padding: 12px;
-            font-size: 18px;
-            border-radius: 8px;
-            transition: 0.3s;
+            font-size: 22px;
+            border-radius: 10px;
+            border: none;
+            margin-top: 20px;
+            transition: 0.3s ease;
         }
+
         .btn-submit:hover {
             background-color: #146c43;
+            transform: translateY(-2px);
         }
+
         #message {
-            margin-top: 15px;
+            margin-top: 20px;
             text-align: center;
+            font-size: 18px;
             font-weight: bold;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 576px) {
+            .form-card { margin: 20px; padding: 25px; }
         }
     </style>
 </head>
@@ -59,26 +101,26 @@
 
 <div class="container">
     <div class="form-card">
-        <h2 class="header-title">Ramzan Atiyyat Competition</h2>
-        <h3 class="sub-title">جامعۃ المدینہ انڈیا</h3>
+        <h1 class="header-title">رمضان عطیات مقابلہ</h1>
+        <h2 class="sub-title">جامعۃ المدینہ انڈیا</h2>
         
-        <form id="competitionForm">
-            <div class="mb-3">
-                <label class="form-label">Naam (Name)</label>
-                <input type="text" name="name" class="form-control" placeholder="Apna naam likhein" required>
+        <form id="atiyyatForm">
+            <div class="mb-4 text-end">
+                <label class="form-label">نام (Name)</label>
+                <input type="text" name="name" class="form-control" placeholder="اپنا نام یہاں لکھیں" required>
             </div>
             
-            <div class="mb-3">
-                <label class="form-label">Jamia</label>
-                <input type="text" name="jamia" class="form-control" placeholder="Apne Jamia ka naam" required>
+            <div class="mb-4 text-end">
+                <label class="form-label">جامعہ (Jamia)</label>
+                <input type="text" name="jamia" class="form-control" placeholder="اپنے جامعہ کا نام لکھیں" required>
             </div>
             
-            <div class="mb-3">
-                <label class="form-label">Atiyyat Amount (Raqam)</label>
-                <input type="number" name="amount" class="form-control" placeholder="Raqam likhein" required>
+            <div class="mb-4 text-end">
+                <label class="form-label">عطیات کی رقم (Amount)</label>
+                <input type="number" name="amount" class="form-control" placeholder="رقم درج کریں" required>
             </div>
 
-            <button type="submit" class="btn btn-submit" id="submitBtn">Data Jama Karein</button>
+            <button type="submit" class="btn btn-submit" id="submitBtn">ڈیٹا جمع کریں</button>
         </form>
         
         <div id="message"></div>
@@ -87,36 +129,35 @@
 
 <script>
     // Apne Google Apps Script Web App ka URL yahan paste karein
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyOijtRZnX2KtUcJGAUgLiGBUlusPRwQlU0YysCS2HN0_Ef-y2vX3sQDHvECs1sOHPd/exec';
-    const form = document.getElementById('competitionForm');
+    const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL_HERE';
+    const form = document.getElementById('atiyyatForm');
     const msg = document.getElementById('message');
     const btn = document.getElementById('submitBtn');
 
     form.addEventListener('submit', e => {
         e.preventDefault();
         btn.disabled = true;
-        btn.innerHTML = "Processing...";
-        msg.innerHTML = "Data bheja ja raha hai...";
+        btn.innerHTML = "پروسیسنگ ہو رہی ہے...";
+        msg.innerHTML = "ڈیٹا بھیجا جا رہا ہے، براہ کرم انتظار کریں...";
         msg.className = "text-primary";
 
         fetch(scriptURL, { method: 'POST', body: new FormData(form)})
             .then(response => {
-                msg.innerHTML = "Shukriya! Data kamyabi se jama ho gaya.";
+                msg.innerHTML = "شکریہ! ڈیٹا کامیابی کے ساتھ جمع ہو گیا۔";
                 msg.className = "text-success";
                 btn.disabled = false;
-                btn.innerHTML = "Data Jama Karein";
+                btn.innerHTML = "ڈیٹا جمع کریں";
                 form.reset();
             })
             .catch(error => {
-                msg.innerHTML = "Maaf kijiyega, error aaya hai!";
+                msg.innerHTML = "معذرت، ڈیٹا جمع کرنے میں غلطی ہوئی ہے!";
                 msg.className = "text-danger";
                 btn.disabled = false;
-                btn.innerHTML = "Dobara Koshish Karein";
+                btn.innerHTML = "دوبارہ کوشش کریں";
                 console.error('Error!', error.message);
             });
     });
 </script>
 
 </body>
-
 </html>
