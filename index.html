@@ -60,20 +60,27 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     var fullMapping = {};
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyq48Z1sQCj5WRA6b0BGT97Y2nkYM6XU6RJJELlXTxdZP9zH9XkPb51sZ1PI8EUTiUq/exec'; // Apna URL yahan lagayein
+    // Aapka Web App URL (Ise check karlein ke sahi hai)
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyq48Z1sQCj5WRA6b0BGT97Y2nkYM6XU6RJJELlXTxdZP9zH9XkPb51sZ1PI8EUTiUq/exec'; 
 
     window.onload = function() {
-        google.script.run.withSuccessHandler(function(res) {
-            fullMapping = res.mapping;
-            populateDropdown('region', res.regions);
-            populateDropdown('darja', res.classes);
-        }).getDropdownData();
+        // Dropdown data load karne ke liye GET request
+        fetch(scriptURL + '?action=getDropdowns')
+            .then(response => response.json())
+            .then(res => {
+                fullMapping = res.mapping;
+                populateDropdown('region', res.regions);
+                populateDropdown('darja', res.classes);
+            })
+            .catch(err => console.error('Data load error:', err));
     };
 
     function populateDropdown(id, list) {
         let select = document.getElementById(id);
         select.innerHTML = '<option value="">منتخب کریں</option>';
-        list.forEach(item => select.innerHTML += `<option value="${item}">${item}</option>`);
+        list.forEach(item => {
+            select.innerHTML += `<option value="${item}">${item}</option>`;
+        });
     }
 
     function updateZimmedar() {
@@ -86,22 +93,27 @@
     function updateJamia() {
         let reg = document.getElementById('region').value;
         let zim = document.getElementById('zimmedar').value;
-        let jamList = fullMapping[reg][zim] || [];
+        let jamList = (fullMapping[reg] && fullMapping[reg][zim]) ? fullMapping[reg][zim] : [];
         populateDropdown('jamia', jamList);
     }
 
     document.getElementById('atiyyatForm').onsubmit = function(e) {
         e.preventDefault();
         Swal.fire({ title: 'انتظار کریں...', didOpen: () => Swal.showLoading() });
+        
         fetch(scriptURL, { method: 'POST', body: new FormData(this) })
-            .then(r => r.json()).then(res => {
+            .then(r => r.json())
+            .then(res => {
                 Swal.close();
-                document.getElementById('formSection').style.display = 'none';
-                document.getElementById('rankCard').style.display = 'block';
-                document.getElementById('airRank').innerText = res.airRank;
+                if(res.status === 'success') {
+                    document.getElementById('formSection').style.display = 'none';
+                    document.getElementById('rankCard').style.display = 'block';
+                    document.getElementById('airRank').innerText = res.airRank;
+                }
             });
     };
 </script>
 </body>
 </html>
+
 
