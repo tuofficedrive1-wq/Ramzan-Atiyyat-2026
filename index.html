@@ -5,53 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>رمضان عطیات مقابلہ</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
-        @font-face { font-family: 'Jameel Noori Nastaleeq'; src: url('https://cdn.jsdelivr.net/gh/m-a-k-cool/fonts/Jameel%20Noori%20Nastaleeq.ttf'); }
-        body { background: #0d4d2d; font-family: 'Jameel Noori Nastaleeq', sans-serif; padding: 15px; }
-        .form-card { background: white; max-width: 500px; margin: auto; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .form-label { color: #198754; font-weight: bold; font-size: 20px; }
-        .form-control, .form-select { margin-bottom: 15px; font-size: 18px; border-radius: 10px; text-align: right; }
-        .watermark { text-align: center; color: rgba(255,255,255,0.4); margin-top: 20px; font-size: 22px; }
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
+        
+        body { background-color: #0d4d2d; font-family: 'Noto Nastaliq Urdu', serif; padding: 15px; }
+        .form-card { background: white; max-width: 500px; margin: auto; padding: 25px; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.4); }
+        .arabic-title { font-family: 'Amiri', serif; color: #198754; font-size: 35px; text-align: center; }
+        
+        .form-label { color: #198754; font-weight: bold; font-size: 18px; margin-top: 10px; display: block; }
+        .form-control, .form-select { border-radius: 12px; border: 2px solid #e9ecef; padding: 10px; margin-bottom: 5px; text-align: right; }
+        
+        .btn-submit { background: #198754; color: white; border: none; padding: 12px; border-radius: 12px; width: 100%; font-size: 22px; margin-top: 15px; }
+        .btn-back { background: #198754 !important; color: white !important; width: 100%; padding: 12px; border-radius: 12px; font-size: 22px; border: none; margin-top: 20px; }
+        
         #rankCard { display: none; text-align: center; }
+        .rank-box { background: #f8f9fa; border: 2px solid #198754; border-radius: 20px; padding: 20px; margin: 15px 0; }
+        .rank-num { font-size: 35px; font-weight: bold; color: #d32f2f; }
+        .dua-box { background: #f1f8e9; padding: 15px; border-radius: 15px; color: #1b5e20; font-size: 18px; line-height: 1.8; }
+        .watermark { text-align: center; color: rgba(255,255,255,0.4); font-size: 20px; margin-top: 20px; }
     </style>
 </head>
 <body>
 
-<div class="form-card">
+<div class="form-card animate__animated animate__fadeInDown">
     <div id="formSection">
-        <h2 class="text-center text-success mb-4">رمضان عطیات مقابلہ</h2>
+        <h1 class="arabic-title">رمضان عطیات مقابلہ</h1>
+        <p class="text-center text-muted fs-5">جامعۃ المدینہ انڈیا</p>
         <form id="atiyyatForm">
             <label class="form-label">نام</label>
             <input type="text" name="name" class="form-control" required>
-
-            <label class="form-label">موبائل نمبر (جس پر ای رسید بنی ہے)</label>
-            <input type="tel" name="mobile" class="form-control" placeholder="0000000000" required>
+            
+            <label class="form-label">موبائل نمبر (ای رسید والا)</label>
+            <input type="tel" name="mobile" class="form-control" required>
 
             <label class="form-label">ریجن</label>
-            <select name="region" id="region" class="form-select" onchange="updateZimmedar()" required><option value="">لوڈ ہو رہا ہے...</option></select>
+            <select name="region" id="region" class="form-select" onchange="updateZimmedar()" required><option>لوڈ ہو رہا ہے...</option></select>
 
             <label class="form-label">تعلیمی ذمہ دار</label>
-            <select name="zimmedar" id="zimmedar" class="form-select" onchange="updateJamia()" required><option value="">ریجن منتخب کریں</option></select>
+            <select name="zimmedar" id="zimmedar" class="form-select" onchange="updateJamia()" required><option>پہلے ریجن چنیں</option></select>
 
             <label class="form-label">جامعہ</label>
-            <select name="jamia" id="jamia" class="form-select" required><option value="">ذمہ دار منتخب کریں</option></select>
+            <select name="jamia" id="jamia" class="form-select" required><option>پہلے ذمہ دار چنیں</option></select>
 
             <label class="form-label">درجہ</label>
-            <select name="darja" id="darja" class="form-select" required><option value="">لوڈ ہو رہا ہے...</option></select>
+            <select name="darja" id="darja" class="form-select" required><option>لوڈ ہو رہا ہے...</option></select>
 
-            <div class="row">
+            <div class="row mt-2">
                 <div class="col-6"><label class="form-label">آپ کے عطیات</label><input type="number" name="personal_amount" class="form-control" required></div>
                 <div class="col-6"><label class="form-label">درجے کے عطیات</label><input type="number" name="class_amount" class="form-control" required></div>
             </div>
-
-            <button type="submit" class="btn btn-success w-100 py-2 fs-4" id="submitBtn">ڈیٹا جمع کریں</button>
+            <button type="submit" class="btn btn-submit">ڈیٹا جمع کریں</button>
         </form>
     </div>
 
-    <div id="rankCard">
-        <h3 class="text-success">جزاک اللہ خیرا!</h3>
-        <div class="alert alert-success fs-4">آل انڈیا رینک: <strong id="airRank"></strong></div>
-        <button onclick="location.reload()" class="btn btn-outline-success w-100 mt-3">واپس جائیں</button>
+    <div id="rankCard" class="animate__animated animate__zoomIn">
+        <h2 style="color: #198754; font-family: 'Amiri', serif; font-size: 40px;">جزاک اللہ خیرا!</h2>
+        <div class="rank-box">
+            <div style="font-size: 20px;">آل انڈیا رینک: <span class="rank-num" id="airRank">0</span></div>
+            <hr>
+            <div style="font-size: 20px;">ریجن (<span id="regName"></span>) رینک: <span class="rank-num" style="color: #0d6efd;" id="regRank">0</span></div>
+        </div>
+        <div class="dua-box">
+            اب اگلے جمعہ کو کارکردگی لی جائے گی۔<br>تب تک مزید کوششوں کو بڑھا دیں ۔<br>
+            <b>اللہ پاک آپ سب کو رمضان کی برکتیں نصیب فرمائے۔</b>
+        </div>
+        <button onclick="location.reload()" class="btn btn-back">واپس جائیں</button>
     </div>
 </div>
 
@@ -60,80 +79,57 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     var fullMapping = {};
-    // --- SETTINGS ---
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzQGgFJgjFKlq2ErBYsyk0ANBwJhpw6XlNY9IVChOGEftK-L7M1fYFZqZ2kbWX3FrL5/exec'; 
-    const mySheetId = '1ScZXudbJfJ8mxkW4FvnzdIundwBMjRXqZrqnTnqhzXg'; // Sheet ID yahan hai
-    const mySheetName = 'data'; // Sheet Name yahan hai
-    // ----------------
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwoHGtAnEbxMm7MET-yx3VOPj5vymGIZx930ezNudG4vVD-i3IL2B_SgGLYCqCnpksc/exec';
+    const mySheetId = '1ScZXudbJfJ8mxkW4FvnzdIundwBMjRXqZrqnTnqhzXg';
+    const mySheetName = 'data';
 
+    // JSONP for Dropdowns (Bypasses CORS)
     window.onload = function() {
-        // JSONP Call to get data
         var script = document.createElement('script');
-        script.src = `${scriptURL}?action=getDropdowns&sheetId=${mySheetId}&sheetName=${mySheetName}&callback=setupData`;
+        script.src = `${scriptURL}?action=getDropdowns&sheetId=${mySheetId}&sheetName=${mySheetName}&callback=initData`;
         document.body.appendChild(script);
     };
 
-    function setupData(res) {
+    function initData(res) {
         fullMapping = res.mapping;
-        populateDropdown('region', res.regions);
-        populateDropdown('darja', res.classes);
+        fillDrop('region', res.regions);
+        fillDrop('darja', res.classes);
     }
 
-    function populateDropdown(id, list) {
-        let select = document.getElementById(id);
-        if(!select) return;
-        select.innerHTML = '<option value="">منتخب کریں</option>';
-        list.forEach(item => {
-            select.innerHTML += `<option value="${item}">${item}</option>`;
-        });
+    function fillDrop(id, list) {
+        let el = document.getElementById(id);
+        el.innerHTML = '<option value="">منتخب کریں</option>';
+        list.forEach(i => el.innerHTML += `<option value="${i}">${i}</option>`);
     }
 
     function updateZimmedar() {
-        let reg = document.getElementById('region').value;
-        let zimList = Object.keys(fullMapping[reg] || {});
-        populateDropdown('zimmedar', zimList);
-        document.getElementById('jamia').innerHTML = '<option value="">ذمہ دار منتخب کریں</option>';
+        let r = document.getElementById('region').value;
+        fillDrop('zimmedar', Object.keys(fullMapping[r] || {}));
+        document.getElementById('jamia').innerHTML = '<option>ذمہ دار چنیں</option>';
     }
 
     function updateJamia() {
-        let reg = document.getElementById('region').value;
-        let zim = document.getElementById('zimmedar').value;
-        let jamList = (fullMapping[reg] && fullMapping[reg][zim]) ? fullMapping[reg][zim] : [];
-        populateDropdown('jamia', jamList);
+        let r = document.getElementById('region').value;
+        let z = document.getElementById('zimmedar').value;
+        fillDrop('jamia', fullMapping[r][z] || []);
     }
 
     document.getElementById('atiyyatForm').onsubmit = function(e) {
         e.preventDefault();
-        Swal.fire({ 
-            title: 'انتظار کریں...', 
-            text: 'آپ کا رینک کیلکولیٹ کیا جا رہا ہے',
-            allowOutsideClick: false, 
-            didOpen: () => Swal.showLoading() 
-        });
-
+        Swal.fire({ title: 'انتظار کریں...', didOpen: () => Swal.showLoading() });
+        
         fetch(scriptURL, { method: 'POST', body: new FormData(this) })
             .then(r => r.json()).then(res => {
                 Swal.close();
                 if(res.status === 'success') {
                     document.getElementById('formSection').style.display = 'none';
                     document.getElementById('rankCard').style.display = 'block';
-                    
-                    // Display Data
                     document.getElementById('airRank').innerText = res.airRank;
                     document.getElementById('regRank').innerText = res.regRank;
                     document.getElementById('regName').innerText = res.region;
-                    
-                    // Agar aap total raqam bhi dikhana chahen
-                    if(document.getElementById('totalAmountDisplay')) {
-                        document.getElementById('totalAmountDisplay').innerText = "کل رقم: " + res.totalAmount;
-                    }
                 }
-            }).catch(() => Swal.fire('Error', 'ڈیٹا جمع کرنے میں مسئلہ ہوا ہے', 'error'));
+            }).catch(() => Swal.fire('Error', 'Net check karein', 'error'));
     };
 </script>
 </body>
 </html>
-
-
-
-
